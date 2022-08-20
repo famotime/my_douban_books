@@ -5,8 +5,6 @@ my_douban_data/*.html
 __pycache__/
 *.py[cod]
 *$py.class
-*.txt
-*.md
 
 # C extensions
 *.so
