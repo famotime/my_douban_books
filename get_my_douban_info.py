@@ -167,7 +167,7 @@ def save_progress(book_amounts):
     """保存进度（书籍数量）"""
     with open(data_folder / "progress.json", 'w', encoding='utf-8') as f:
         progress = {key: value for key, value in zip(['想读', '在读', '已读'], book_amounts)}
-        json.dump(progress, f)
+        json.dump(progress, f, ensure_ascii=False)
 
 
 def load_progress(progress_file):
