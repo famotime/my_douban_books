@@ -104,7 +104,8 @@ def parse_html_file(html_file, category):
             stars = '<font color=#FF0000 size=6>' + '★' * int(node.xpath('.//span[starts-with(@class,"rating")]/@class')[0].strip('rating-t')) + '</font>'
             comment = node.xpath('.//p[@class="comment"]')[0].text.strip()
         except Exception as e:
-            print(e)
+            # print(e)
+            pass
 
         # 下载图片到本地
         img_folder = pathlib.Path(data_folder / f'html_{category}')
@@ -121,7 +122,7 @@ def parse_html_file(html_file, category):
         # print(title, stars, link, pub, tags, img, comment, sep='\n')
         # print('\n')
 
-        text += f"### [{title}]({link}) {stars}\n> {pub}\n> {tags}\n\n![]({img_path})\n{comment}\n\n"
+        text += f"### [{title}]({link}) {stars}\n> {pub}\n> {tags}\n\n![]({img_path.relative_to(data_folder)})\n{comment}\n\n"
     return text
 
 
@@ -162,10 +163,29 @@ def md_abs_img_path(md_file):
         print(f"在{md_file.absolute()}未发现图片链接，跳过……")
 
 
+def save_progress(book_amounts):
+    """保存进度（书籍数量）"""
+    with open(data_folder / "progress.json", 'w', encoding='utf-8') as f:
+        progress = {key: value for key, value in zip(['想读', '在读', '已读'], book_amounts)}
+        json.dump(progress, f)
+
+
+def load_progress(progress_file):
+    """加载进度（书籍数量）"""
+    try:
+        with open(progress_file) as f:
+            progress = json.load(f)
+        return progress
+    except Exception:
+        print("未发现历史下载记录。")
+        return None
+
+
 if __name__ == '__main__':
     account_file = pathlib.Path(r'C:\QMDownload\Python Programming\Python_Work\account\web_accounts.json')
     user_id = 2180307
     data_folder = pathlib.Path('./my_douban_data')
+    progress_file = data_folder / 'progress.json'
     headers = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36'}
 
     # 登录不成功但仍须执行，否则后续下载网页不成功
@@ -173,12 +193,19 @@ if __name__ == '__main__':
     s = requests.Session()
     login_douban(s, user, password)
 
+    # 读取上次处理记录
+    progress = load_progress(progress_file)
+
     # 下载豆瓣读书记录html文件到本地
     book_amounts = []
     for category in ['想读', '在读', '已读']:
         book_amount = get_book_amount(user_id, category, s)
         book_amounts.append(book_amount)
-        save_webpages(user_id, category, book_amount, s)
+        if not progress or book_amount != progress[category]:
+            save_webpages(user_id, category, book_amount, s)
+        else:
+            print(f"{category}书籍相比上次查询结果无变化，跳过未处理！")
+    save_progress(book_amounts)     # 保存进度
 
     # 从html文件中解析信息并生成markdown文件
     categories = ['想读', '在读', '已读']
