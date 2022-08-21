@@ -159,11 +159,12 @@ def save_progress(book_amounts):
 def load_progress(progress_file):
     """加载进度（书籍数量）"""
     try:
-        with open(progress_file) as f:
+        with open(progress_file, encoding='utf-8') as f:
             progress = json.load(f)
         return progress
-    except Exception:
+    except Exception as e:
         print("未发现历史下载记录。")
+        print(e)
         return None
 
 

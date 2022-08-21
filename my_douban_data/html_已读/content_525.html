@@ -1517,9 +1517,43 @@ for(var i = 0, l = accounts.length; i < l; i++) {
 
 
 
+  <img src="https://img3.doubanio.com/pics/10k.jpg" style="display:none;" />
+  <img src="https://img3.doubanio.com/pics/10k.jpg" style="display:none;" />
+  <img src="https://img3.doubanio.com/pics/10k.jpg" style="display:none;" />
+  <img src="https://www.douban.com/pics/10k.jpg" style="display:none;" />
+
+<script type="text/javascript">
+$(window).load(function(){
+    if (get_cookie('ct')) return;
+    var submit_result = function(domain, key, cost) {
+        $.get("https://www.douban.com/misc/ct", {domain:domain, key:key, cost:cost});
+    };
+    var test = function(domain, url, key, timeout) {
+        var img = $('<img src="http://'+domain+'.douban.com'+url+'" style="display:none;" />');
+        var begin = new Date();
+        var t;
+        img.load(function() {
+            var cost = new Date() - begin;
+            clearTimeout(t);
+            submit_result(domain, key, cost);
+            set_cookie({ct:'y'});
+        });
+        $().append(img);
+        t = setTimeout(function(){
+            submit_result(domain, key, "timedout");
+            }, timeout);
+    };
+    test('img5', '/pics/ct-1k.gif', 'ct-1k', 5000);
+    test('img3', '/pics/ct-1k.gif', 'ct-1k', 5000);
+    test('img1', '/pics/ct-1k.gif', 'ct-1k', 5000);
+    test('www', '/pics/ct-1k.gif', 'ct-1k', 5000);
+});
+</script>
 
 
-    <!-- dae-web-book--default-857b79c64c-k8kqd-->
+
+
+    <!-- dae-web-book--default-857b79c64c-z9lkp-->
 
 </body>
 </html>
