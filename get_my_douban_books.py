@@ -149,20 +149,6 @@ def make_mdfile(html_folder, category, book_amount):
     print(f"已生成文件{md_file.absolute()}。")
 
 
-def md_abs_img_path(md_file):
-    """将markdown文件中的图片相对路径改为绝对路径"""
-    with open(md_file, encoding='utf-8') as f:
-        content = f.read()
-    if '![' in content:
-        content = re.sub(r'!\[\]\((.*?)\)', lambda x: f"![]({md_file.absolute().parent / x.group(1)})", content)
-        md_file_abs = md_file.with_name(md_file.stem + '_abs.md')
-        with open(md_file_abs, 'w', encoding='utf-8') as f:
-            f.write(content)
-        print(f"已保存文件{md_file_abs.absolute()}。")
-    else:
-        print(f"在{md_file.absolute()}未发现图片链接，跳过……")
-
-
 def save_progress(book_amounts):
     """保存进度（书籍数量）"""
     with open(data_folder / "progress.json", 'w', encoding='utf-8') as f:
@@ -212,7 +198,3 @@ if __name__ == '__main__':
     html_folders = [pathlib.Path(data_folder / f"html_{i}") for i in categories]
     for html_folder, category, book_amount in zip(html_folders, categories, book_amounts):
         make_mdfile(html_folder, category, book_amount)
-
-    # 将markdown文件中的图片相对路径改为绝对路径
-    for md_file in [x for x in data_folder.glob('*.md') if not '_abs' in x.stem]:
-        md_abs_img_path(md_file)
