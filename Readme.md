@@ -14,4 +14,6 @@
 - **get_my_douban_books.py:** 批量获取我的豆瓣读书清单及书评（已读、在读、想读），生成Markdown文件
 - **export_booklist.py:** 根据excel表书单，提取我的豆瓣读书记录（已读、在读、想读）中相关内容，并保存为markdown文件
 - **douban_reading_notes.py:** 获取豆瓣网上某本书的摘录笔记（无须登录）
+- **create_bookcover_wall.py:** 基于读书记录Markdown文件，生成书本封面墙（书本封面缩略图拼接）
+  ![书籍封面图集合](.\书籍封面图集合.png)
 - **md_files_process.py:** Markdown文件批量处理

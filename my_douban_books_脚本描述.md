@@ -1,4 +1,5 @@
 # my_douban_books
+- **create_bookcover_wall.py:** 基于读书记录Markdown文件，生成书本封面墙（书本封面缩略图拼接）
 - **douban_reading_notes.py:** 获取豆瓣网上某本书的摘录笔记（无须登录）
 - **export_booklist.py:** 根据excel表书单，提取我的豆瓣读书记录（已读、在读、想读）中相关内容，并保存为markdown文件
 - **extract_descriptions.py:** 提取指定目录下python脚本描述内容，生成脚本概览(markdown文件)
