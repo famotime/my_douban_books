@@ -1,4 +1,4 @@
-"""根据excel表书单，提取豆瓣读书记录（已读、在读、想读）中已输出内容，并保存为markdown文件"""
+"""根据excel表书单，提取我的豆瓣读书记录（已读、在读、想读）中相关内容，并保存为markdown文件"""
 import pathlib
 import datetime
 import re
