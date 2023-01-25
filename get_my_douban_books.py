@@ -1,11 +1,12 @@
-"""批量获取我的豆瓣读书清单及书评（已读、在读、想读）"""
-import requests
+"""批量获取我的豆瓣读书清单及书评（已读、在读、想读），生成Markdown文件"""
+import json
 import pathlib
-import time
 import random
 import re
-import json
+import time
 from datetime import date
+
+import requests
 from lxml import etree
 
 
@@ -58,7 +59,7 @@ def get_book_amount(user_id, category, session):
     content = session.get(url, headers=headers).text
     html = etree.HTML(content)
     book_amount = int(re.search(r'\d+', html.xpath('//h1')[0].text).group())
-    print(f"发现“{category}”书本数量：{book_amount}。")
+    print(f"发现“{category}”书籍{book_amount}本，正在下载网页文件……")
     return book_amount
 
 
@@ -79,6 +80,7 @@ def save_webpages(user_id, category, book_amount, session):
         html_file = html_folder / f'content_{num:03.0f}.html'
 
         download_webpage(url, html_file, session)
+        print(f"已下{num+1}/{(book_amount//15)*15}：{url}……")
         time.sleep(random.randint(1, 3))
     print(f"已完成{book_amount//15 + 1}个html文件下载，并保存到目录：{html_folder.absolute()}。")
     return html_folder
@@ -169,7 +171,7 @@ def load_progress(progress_file):
 
 
 if __name__ == '__main__':
-    account_file = pathlib.Path(r'C:\QMDownload\Python Programming\Python_Work\account\web_accounts.json')
+    account_file = pathlib.Path("../../account/web_accounts.json")
     user_id = 2180307
     data_folder = pathlib.Path('./my_douban_data')
     progress_file = data_folder / 'progress.json'

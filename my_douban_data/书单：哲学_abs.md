@@ -1,0 +1,184 @@
+## 哲学
+### [苏格拉底的申辩](https://book.douban.com/subject/2170983/) 
+> [古希腊] 柏拉图 / 吴飞 译/疏 / 华夏出版社 / 2007-6 / 25.00元
+> 2022-03-31 想读
+
+![](d:\Python_Work\Web Spider\my_douban_books\my_douban_data\html_想读\s4595394.jpg)
+
+
+### [哲学问题](https://book.douban.com/subject/2111791/) 
+> [英] 伯特兰·罗素 / 何兆武 / 商务印书馆 / 2007-4 / 15.00元
+> 2022-03-31 想读
+
+![](d:\Python_Work\Web Spider\my_douban_books\my_douban_data\html_想读\s8960796.jpg)
+
+
+### [哲学的故事](https://book.douban.com/subject/14439405/) 
+> [美] 威尔·杜兰特 / 蒋剑峰、张程程 / 新星出版社 / 2013-3 / 49.00元
+> 2022-05-22 在读
+
+![](d:\Python_Work\Web Spider\my_douban_books\my_douban_data\html_在读\s24589846.jpg)
+
+
+### [西方哲学史: 增补修订版·精装本](https://book.douban.com/subject/26606416/) 
+> [美]梯利 / 葛力 / 商务印书馆 / 2015-11 / 68.00
+> 2022-03-31 想读
+
+![](d:\Python_Work\Web Spider\my_douban_books\my_douban_data\html_想读\s28746617.jpg)
+
+
+### [从卢梭到尼采: 耶鲁大学公选课](https://book.douban.com/subject/26967794/) 
+> (美) 弗兰克·M.特纳 (Frank M.Turner)、(英) 理查德·A洛夫特豪斯 (Richard A.Lofthouse) / 王玲 / 北京大学出版社 / 2017-7-18 / 59.00元
+> 2022-03-31 想读
+
+![](d:\Python_Work\Web Spider\my_douban_books\my_douban_data\html_想读\s29500370.jpg)
+
+
+### [存在主义咖啡馆: 自由、存在和杏子鸡尾酒](https://book.douban.com/subject/27170538/) 
+> [英] 莎拉·贝克韦尔 / 沈敏一 / 北京联合出版公司 / 2017-12-1 / 88.00元
+> 2022-09-12 在读
+
+![](d:\Python_Work\Web Spider\my_douban_books\my_douban_data\html_在读\s29675043.jpg)
+
+
+### [耶鲁大学公开课 : 政治哲学](https://book.douban.com/subject/26278816/) 
+> [美]史蒂芬·B·斯密什(Steven B. Smith) / 贺晴川 / 北京联合出版公司 / 2015-1 / 39.80元
+> 2022-03-31 想读
+
+![](d:\Python_Work\Web Spider\my_douban_books\my_douban_data\html_想读\s33898400.jpg)
+
+
+### [人性论（全两册）: 在精神科学中采用实验推理方法的一个尝试](https://book.douban.com/subject/1178535/) 
+> 休谟 / 关文运 / 商务印书馆 / 1980-4-1 / 35.00元
+> 2022-03-31 想读
+
+![](d:\Python_Work\Web Spider\my_douban_books\my_douban_data\html_想读\s2190557.jpg)
+
+
+### [利维坦](https://book.douban.com/subject/1468426/) 
+> [英] 霍布斯 / 黎思复、黎廷弼 / 商务印书馆 / 1985-9 / 35.00元
+> 2022-03-31 想读
+
+![](d:\Python_Work\Web Spider\my_douban_books\my_douban_data\html_想读\s1755872.jpg)
+
+
+### [查拉图斯特拉如是说: 详注本](https://book.douban.com/subject/25935944/) 
+> (德) 尼采 / 钱春绮 / 生活·读书·新知三联书店 / 2014-9-1 / CNY 46.00
+> 2019-05-17 想读
+
+![](d:\Python_Work\Web Spider\my_douban_books\my_douban_data\html_想读\s29966536.jpg)
+
+
+### [西西弗神话](https://book.douban.com/subject/30295044/) <font color=#FF0000 size=6>★★</font>
+> 【法】加缪 / 李玉民 / 天津人民出版社 / 2018-9 / 42.00
+> 2019-06-26 读过
+
+![](d:\Python_Work\Web Spider\my_douban_books\my_douban_data\html_已读\s34236668.jpg)
+原来这就是那本闻名已久的《西西弗神话》，加缪的哲学随笔集。书很薄，小开本，一百多页，但看着好费劲。每个字都认识，每句话也勉强能看懂字面意思，但是连起来读一段就云里雾里。原来最著名的《西西弗神话》只是其中一个五六页纸的短篇，传播的比其他文章都广，看来讲道理还是说故事最有效啊。
+
+### [性经验史: 增订版](https://book.douban.com/subject/1437687/) 
+> [法] 米歇尔·福柯 / 佘碧平 / 上海人民出版社 / 2005-9-1 / 42.00元
+> 2022-03-31 想读
+
+![](d:\Python_Work\Web Spider\my_douban_books\my_douban_data\html_想读\s5672964.jpg)
+
+
+### [哲学和自然之镜](https://book.douban.com/subject/1048835/) 
+> （美）理查德・罗蒂 / 李幼蒸 / 商务印书馆 / 2003-12 / 27.00
+> 2022-03-31 想读
+
+![](d:\Python_Work\Web Spider\my_douban_books\my_douban_data\html_想读\s1252178.jpg)
+
+
+### [思想本质: 语言是洞察人类天性之窗](https://book.douban.com/subject/26593192/) <font color=#FF0000 size=6>★★★★</font>
+> 史蒂芬·平克 (Steven Pinker) / 张旭红、梅德明 / 浙江人民出版社 / 2015-8-1 / CNY 129.90
+> 2022-05-02 读过
+
+![](d:\Python_Work\Web Spider\my_douban_books\my_douban_data\html_已读\s28277341.jpg)
+这本书的作者是平克，我之前读过他的《白板》，对其深度探究一个话题并磅礴论证观点的能力印象深刻。这本书是关于另外一个更宏大的主题：思想本质，作者从语言分析的角度探讨了人类普遍的思考框架和底层方法，因为“语言反映了我们对现实的领悟，……语言是通向人性的窗口。”
+
+虽然人类思考受限于某些固定的思维结构，比如时间、空间和因果关系，但作者最后还是对人类认识和把握外部世界提出了乐观的看法。并且提供了两种逃离自身心智洞穴的方法：一种是概念隐喻，一种是语言组合，“当你将这两种资质，即隐喻力和组合力结合在一起时，思想的语言就可以被用于构思和表达人们源源不断的思想了。”
+
+毕竟对于奔跑不及猎豹，强壮不如猿猴，凶猛逊于老虎，身体素质在弱肉强食的原始丛林里完全不入流的人类来说，思想是唯一可以依仗的东西了。
+
+### [女人、火与危险事物: 范畴显示的心智](https://book.douban.com/subject/26985790/) 
+> [美] 乔治·莱考夫 / 李葆嘉、章婷、邱雪政 / 世界图书出版公司 / 2017-3 / 115
+> 2022-03-31 想读
+
+![](d:\Python_Work\Web Spider\my_douban_books\my_douban_data\html_想读\s29385055.jpg)
+
+
+### [禅与摩托车维修艺术](https://book.douban.com/subject/6811366/) <font color=#FF0000 size=6>★★★</font>
+> 罗伯特•M.波西格 (Robert M.Pirsig) / 张国辰 / 重庆出版社 / 2011-9-1 / 36.00元
+> 2022-01-16 读过
+
+![](d:\Python_Work\Web Spider\my_douban_books\my_douban_data\html_已读\s6927676.jpg)
+书名很有意趣，为什么把超越尘世的禅和烟火气的摩托车维修放在一起？ 因为作者认为日常琐事都是修行，“佛陀或是耶稣坐在电脑和变速器的齿轮旁边修行会像坐在山顶和莲花座上一样自在。”这跟禅宗大师的说法类似，有人曾问大珠慧海：你如何修行？大珠慧海回答：“饥来吃饭，困来即眠。”
+
+这也引出了“良质(quality)”的概念，即使在做同样的事，抱持的信念不一致，得到的结果就不同。良质只能意会不能言传，当然也无法用文字定义，因为“如果我们去界定，我们所界定的就无法涵盖整体的良质。”作者走的更远，他认为“良质既不属于人心的一部分，也不属于物质。它将独立于这两者之外。……良质是一切的源头和本质。”
+
+书中并没有很明晰的推导过程，这有点类似于宗教信仰里的“最后一跃”，不能靠逻辑达成。
+
+### [哲学的慰藉](https://book.douban.com/subject/1045201/) 
+> 德波顿 著 / 资中筠 / 上海译文出版社 / 2004-04 / 18.00
+> 2022-03-31 想读
+
+![](d:\Python_Work\Web Spider\my_douban_books\my_douban_data\html_想读\s1035733.jpg)
+
+
+### [返璞归真: 纯粹的基督教](https://book.douban.com/subject/2066374/) 
+> C.S.路易斯 / 汪咏梅 / 华东师范大学出版社 / 2007-3 / 24.80元
+> 2022-03-31 想读
+
+![](d:\Python_Work\Web Spider\my_douban_books\my_douban_data\html_想读\s2527436.jpg)
+
+
+### [欢迎来到实在界这个大荒漠](https://book.douban.com/subject/20284227/) 
+> [斯洛文尼亚] 斯拉沃热·齐泽克 / 季广茂 / 译林出版社 / 2012-11 / 20.00元
+> 2022-03-31 想读
+
+![](d:\Python_Work\Web Spider\my_douban_books\my_douban_data\html_想读\s24515041.jpg)
+
+
+### [恋人絮语: 一个解构主义的文本](https://book.douban.com/subject/3765331/) 
+> [法]罗兰·巴特 / 汪耀进、武佩荣 / 上海人民出版社 / 2009-06-01 / 24.00元
+> 2019-01-31 在读
+
+![](d:\Python_Work\Web Spider\my_douban_books\my_douban_data\html_在读\s3860475.jpg)
+
+
+### [论语译注](https://book.douban.com/subject/4098263/) 
+> 杨伯峻 / 中华书局 / 2009-10-1 / 22.00元
+> 2022-03-31 想读
+
+![](d:\Python_Work\Web Spider\my_douban_books\my_douban_data\html_想读\s4052084.jpg)
+
+
+### [老子注译及评介](https://book.douban.com/subject/1033163/) 
+> 陈鼓应 / 中华书局 / 2009-2 / 46.00元
+> 2022-03-31 想读
+
+![](d:\Python_Work\Web Spider\my_douban_books\my_douban_data\html_想读\s4011419.jpg)
+
+
+### [庄子今注今译（全三册）](https://book.douban.com/subject/1051919/) 
+> 陈鼓应 注译 / 中华书局 / 2009-2 / 76.00元
+> 2022-03-31 想读
+
+![](d:\Python_Work\Web Spider\my_douban_books\my_douban_data\html_想读\s6286352.jpg)
+
+
+### [孟子譯注: 中国古典名著译注丛书](https://book.douban.com/subject/1006624/) 
+> 楊伯峻譯注 / 中华书局 / 2005-01-01 / 28.00元
+> 2022-03-31 想读
+
+![](d:\Python_Work\Web Spider\my_douban_books\my_douban_data\html_想读\s11315537.jpg)
+
+
+### [荀子集解](https://book.douban.com/subject/1034396/) 
+> 王先谦 / 中华书局 / 1988-9-1 / 40.00元
+> 2022-03-31 想读
+
+![](d:\Python_Work\Web Spider\my_douban_books\my_douban_data\html_想读\s1024755.jpg)
+
+
