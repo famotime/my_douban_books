@@ -104,7 +104,7 @@ def parse_html_file(html_file, category):
             tags = '；'.join(node.xpath('.//div[@class="short-note"]//span//text()')).replace('\n      ', ' ')
             # stars = ':star:' * int(node.xpath('.//span[starts-with(@class,"rating")]/@class')[0].strip('rating-t'))
             stars = '<font color=#FF0000 size=6>' + '★' * int(node.xpath('.//span[starts-with(@class,"rating")]/@class')[0].strip('rating-t')) + '</font>'
-            comment = node.xpath('.//p[@class="comment"]')[0].text.strip()
+            comment = node.xpath('.//p[@class="comment comment-item"]')[0].text.strip()
         except Exception as e:
             # print(e)
             pass
