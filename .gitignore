@@ -1,8 +1,8 @@
 # customize
 my_douban_data/*.html
-my_douban_data/html_想读/*.html
-my_douban_data/html_在读/*.html
-my_douban_data/html_已读/*.html
+my_douban_data/html_想读/
+my_douban_data/html_在读/
+my_douban_data/html_已读/
 AutomationProfile/
 unrelease/
 
