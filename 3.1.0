@@ -1,0 +1,3 @@
+Looking in indexes: https://mirrors.bfsu.edu.cn/pypi/web/simple
+Requirement already satisfied: openpyxl in c:\users\administrator\anaconda3\lib\site-packages (3.1.5)
+Requirement already satisfied: et-xmlfile in c:\users\administrator\anaconda3\lib\site-packages (from openpyxl) (1.1.0)
