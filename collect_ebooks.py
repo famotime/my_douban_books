@@ -2,9 +2,7 @@
 在本地硬盘上查找一个清单文件中的所有电子书，并复制到一个新的目录中。
 
 功能说明：
-1. 清单文件支持两种格式：
-   - 使用《》包裹的书名
-   - 直接写书名（每行一个）
+1. 清单文件包含使用《》包裹的书名
 2. 搜索规则：
    - 文件名必须以搜索词开头（忽略标点符号和大小写）
    - 支持中文、英文和数字
@@ -32,6 +30,7 @@ from pathlib import Path
 import shutil
 import re
 import time
+import pyperclip  # 需要先安装：pip install pyperclip
 
 def generate_file_list(search_dir):
     """
@@ -67,7 +66,9 @@ def generate_file_list(search_dir):
                         'Windows'
                     }
                     if p.is_file() and not any(x.startswith('$') or x in SKIP_DIRS for x in p.parts):
-                        files.append(str(p))
+                        # 添加文件大小和修改时间信息
+                        stat = p.stat()
+                        files.append(f"{p}|{stat.st_size}|{stat.st_mtime}")
                 except (PermissionError, OSError):
                     continue
         except Exception as e:
@@ -108,22 +109,33 @@ def search_file(filename, search_dir):
     if not file_list_path.exists() or file_list_path.stat().st_size == 0:
         file_list_path = generate_file_list(search_dir)
 
-    # 优化1：使用全局缓存，避免重复读取文件列表
+    # 修改缓存结构以包含文件信息
     if not hasattr(search_file, '_file_cache'):
         search_file._file_cache = {'.epub': [], '.pdf': [], '.txt': []}
         with file_list_path.open('r', encoding='utf-8') as f:
             for line in f:
-                path = Path(line.strip())
+                path_str, size, mtime = line.strip().split('|')
+                path = Path(path_str)
                 ext = path.suffix.lower()
                 if ext in search_file._file_cache:
-                    # 预处理文件名，避免重复清理
-                    search_file._file_cache[ext].append((str(path), clean_filename(path.stem)))
+                    search_file._file_cache[ext].append((
+                        str(path),
+                        clean_filename(path.stem),
+                        int(size),
+                        float(mtime)
+                    ))
 
-    # 使用缓存搜索
+    # 按优先级搜索匹配的文件
+    matches = []
     for ext in ['.epub', '.pdf', '.txt']:
-        for file_path, clean_stem in search_file._file_cache[ext]:
+        for file_path, clean_stem, size, mtime in search_file._file_cache[ext]:
             if clean_stem.startswith(name):
-                return file_path
+                matches.append((file_path, ext, size, mtime))
+
+        # 如果在当前优先级找到匹配，就不继续搜索次优先级的文件
+        if matches:
+            # 在相同后缀名下，优先选择更大的文件，如果大小相同则选择更新的文件
+            return max(matches, key=lambda x: (x[2], x[3]))[0]
 
     print(f"未找到：{filename}")
     return "未找到"
@@ -152,50 +164,114 @@ def check_file_list_update(search_dir):
 
     return False
 
-def extract_book_names(line):
+def extract_book_names(content: str) -> list[str]:
     """
-    从一行文本中提取书名，支持两种格式：
-    1. 使用《》包裹的书名
-    2. 不包含《》的整行文本
-    """
-    pattern = r'《([^》]+)》'
-    matches = re.findall(pattern, line)
-    if matches:
-        return matches
-    else:
-        # 如果没有《》，返回整行文本（去除首尾空白）
-        line = line.strip()
-        return [line] if line else []
+    从整个文本内容中提取所有使用《》包裹的书名，并去重
 
-def process_book_list(list_file, search_dir):
-    """
-    处理书籍清单文件
     Args:
-        list_file: 清单文件路径
-        search_dir: 搜索目录路径
+        content: 输入的文本内容
+    Returns:
+        list[str]: 提取到的去重后的书名列表
     """
-    list_path = Path(list_file)
-    search_path = Path(search_dir)
+    if not content or '《' not in content:
+        return []
 
-    if not list_path.exists():
-        raise FileNotFoundError(f"清单文件不存在: {list_file}")
+    pattern = r'《([^》]+)》'
+    matches = re.findall(pattern, content)
+
+    # 使用集合去重后转回列表
+    return list(dict.fromkeys(matches))
+
+def clean_dirname(name: str) -> str:
+    """
+    清理目录名中的非法字符
+    Args:
+        name: 原始目录名
+    Returns:
+        str: 清理后的目录名
+    """
+    # Windows下文件名不能包含这些字符: \ / : * ? " < > |
+    invalid_chars = r'\/:*?"<>|'
+    # 替换非法字符为空格
+    for char in invalid_chars:
+        name = name.replace(char, ' ')
+    # 清理多余的空格
+    name = ' '.join(name.split())
+    return name.strip()
+
+def get_books_from_clipboard():
+    """
+    从剪贴板获取内容并提取书名
+    Returns:
+        tuple: (目录名, 书名列表)
+    """
+    try:
+        content = pyperclip.paste()
+        if not content:
+            raise ValueError("剪贴板内容为空")
+
+        # 获取第一行作为目录名并清理
+        lines = content.splitlines()
+        dir_name = clean_dirname(lines[0].strip()) if lines else "新建书单"
+
+        # 提取书名
+        book_names = extract_book_names(content)
+        if not book_names:
+            raise ValueError("未找到使用《》标记的书名")
+
+        return dir_name, book_names
+    except Exception as e:
+        print(f"从剪贴板获取内容失败: {e}")
+        return None, []
+
+def process_book_list(list_file, search_dir, from_clipboard=False):
+    """
+    处理书籍清单
+    Args:
+        list_file: 清单文件路径（从剪贴板读取时作为输出目录的父目录）
+        search_dir: 搜索目录路径
+        from_clipboard: 是否从剪贴板读取内容
+    """
+    search_path = Path(search_dir)
     if not search_path.exists():
         raise FileNotFoundError(f"搜索目录不存在: {search_dir}")
 
+    # 根据来源获取书名列表和输出目录
+    if from_clipboard:
+        parent_dir = Path(list_file)
+        if not parent_dir.exists():
+            parent_dir.mkdir(parents=True, exist_ok=True)
+
+        dir_name, book_names = get_books_from_clipboard()
+        if not dir_name or not book_names:
+            return
+
+        output_dir = parent_dir / dir_name
+    else:
+        list_path = Path(list_file)
+        if not list_path.exists():
+            raise FileNotFoundError(f"清单文件不存在: {list_file}")
+
+        # 一次性读取整个文件内容
+        with list_path.open('r', encoding='utf-8') as f:
+            content = f.read()
+
+        book_names = extract_book_names(content)
+        output_dir = list_path.parent / list_path.stem
+
     # 创建输出目录
-    output_dir = list_path.parent / list_path.stem
     output_dir.mkdir(exist_ok=True)
+
+    # 结果文件和日志文件都保存在新建的书单目录下
+    result_file = output_dir / "处理结果.txt"
+    log_file = output_dir / "处理日志.txt"
 
     # 获取输出目录中已存在的文件
     existing_files = {clean_filename(f.stem): f.stem for f in output_dir.glob('*.*')}
 
-    # 优化3：批量读取清单文件
-    with list_path.open('r', encoding='utf-8') as f:
-        lines = f.readlines()
-
     # 添加统计变量
     stats = {
-        'total': 0,          # 总文件数
+        'total': len(book_names),  # 总文件数
         'found': 0,          # 找到的文件数
         'copied': 0,         # 成功复制的文件数
         'existing': 0,       # 已存在的文件数
@@ -203,74 +279,64 @@ def process_book_list(list_file, search_dir):
         'copy_failed': []    # 复制失败的文件列表
     }
 
-    # 优化4：使用列表推导式处理结果
+    # 处理每本书
     results = []
-    for line in lines:
-        if not (line := line.strip()):
+    for book_name in book_names:
+        clean_name = clean_filename(book_name)
+
+        if clean_name in existing_files:
+            stats['existing'] += 1
+            result = f"《{book_name}》: 跳过（输出目录已存在：{existing_files[clean_name]}）"
+            results.append(result)
             continue
-        book_names = extract_book_names(line)
-        if not book_names:
-            continue
 
-        line_results = []
-        for book_name in book_names:
-            stats['total'] += 1
-            clean_name = clean_filename(book_name)
+        file_path = search_file(book_name, search_path)
+        if file_path == "未找到":
+            stats['not_found'].append(book_name)
+        else:
+            stats['found'] += 1
+            try:
+                shutil.copy2(file_path, output_dir)
+                stats['copied'] += 1
+            except Exception as e:
+                stats['copy_failed'].append((book_name, str(e)))
 
-            # 修改输出信息，添加跳过原因
-            if clean_name in existing_files:
-                stats['existing'] += 1
-                result = (f"《{book_name}》: 跳过（输出目录已存在：{existing_files[clean_name]}）"
-                         if '《' in line
-                         else f"{book_name}: 跳过（输出目录已存在：{existing_files[clean_name]}）")
-                line_results.append(result)
-                continue
+        result = f"《{book_name}》: {file_path}"
+        results.append(result)
 
-            file_path = search_file(book_name, search_path)
-            if file_path == "未找到":
-                stats['not_found'].append(book_name)
-            else:
-                stats['found'] += 1
-                try:
-                    shutil.copy2(file_path, output_dir)
-                    stats['copied'] += 1
-                except Exception as e:
-                    stats['copy_failed'].append((book_name, str(e)))
+    # 将结果写入日志文件
+    with log_file.open('w', encoding='utf-8') as f:
+        f.write("处理总结：\n")
+        f.write(f"总共需要处理的文件数：{stats['total']}\n")
+        f.write(f"已存在的文件数：{stats['existing']}\n")
+        f.write(f"新找到的文件数：{stats['found']}\n")
+        f.write(f"成功复制的文件数：{stats['copied']}\n")
+        f.write(f"未找到的文件数：{len(stats['not_found'])}\n\n")
 
-            result = f"《{book_name}》: {file_path}" if '《' in line else f"{book_name}: {file_path}"
-            line_results.append(result)
+        if stats['not_found']:
+            f.write("未找到的文件清单：\n")
+            for book in stats['not_found']:
+                f.write(f"- {book}\n")
+            f.write("\n")
 
-        results.append(f"{line}\t=>\t{' | '.join(line_results)}")
+        if stats['copy_failed']:
+            f.write("复制失败的文件：\n")
+            for book, error in stats['copy_failed']:
+                f.write(f"- {book}: {error}\n")
 
-    # 将结果写回文件
-    result_file = list_path.parent / f"{list_path.stem}_结果.txt"
+    # 将详细结果写入结果文件
     with result_file.open('w', encoding='utf-8') as f:
         f.write('\n'.join(results))
 
-    # 打印处理总结
-    print("\n" + "="*50)
-    print("处理总结：")
-    print(f"总共需要处理的文件数：{stats['total']}")
-    print(f"已存在的文件数：{stats['existing']}")
-    print(f"新找到的文件数：{stats['found']}")
-    print(f"成功复制的文件数：{stats['copied']}")
-    print(f"未找到的文件数：{len(stats['not_found'])}")
-
-    if stats['not_found']:
-        print("\n未找到的文件清单：")
-        for book in stats['not_found']:
-            print(f"- {book}")
-
-    if stats['copy_failed']:
-        print("\n复制失败的文件：")
-        for book, error in stats['copy_failed']:
-            print(f"- {book}: {error}")
-
-    print("="*50)
+    print(f"\n处理结果已保存到：{result_file}")
+    print(f"处理日志已保存到：{log_file}")
 
 
 if __name__ == "__main__":
-    list_file = r"C:\Users\Administrator\Desktop\超人书单.md"
+    # 清单文件路径
+    # list_file = r"C:\Users\Administrator\Desktop\超人书单.md"
+
+    # 搜索目录路径
     search_dir = r"J:"
 
     try:
@@ -278,7 +344,12 @@ if __name__ == "__main__":
         if check_file_list_update(search_dir):
             generate_file_list(search_dir)
 
-        process_book_list(list_file, search_dir)
+        # 从文件读取
+        # process_book_list(list_file, search_dir, from_clipboard=False)
+
+        # 或从剪贴板读取
+        process_book_list(r"J:\书单", search_dir, from_clipboard=True)
+
         print("处理完成！")
     except Exception as e:
         print(f"处理失败: {e}")
