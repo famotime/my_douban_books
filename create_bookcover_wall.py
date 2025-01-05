@@ -58,14 +58,15 @@ def add_stars(stars, width, height, col_num, pic_path, font_path):
 
 
 if "__main__" == __name__:
-    records = pathlib.Path(r".\my_douban_data\豆瓣读书记录_2023.md")
+    year = 2024
+    records = pathlib.Path(rf".\my_douban_data\豆瓣读书记录_{year}.md")
     sort_flag = True    # 是否按评价排序
     img_links, stars = get_images_and_stars(records, sort_flag)
 
     width, height = 270, 400    # 单幅缩略图尺寸
     col_num = 10    # 每行包含的图片数
-    pic_path = pathlib.Path(r".\书籍封面图集合.png")     # 拼接图保存路径
-    font_path = r'.\msyh.ttf'  # 字体文件
+    pic_path = records.parent / f"书籍封面图集合_{year}.png"     # 拼接图保存路径
+    font_path = r'.\my_douban_data\msyh.ttf'  # 字体文件
 
     combine_pics(img_links, width, height, col_num, pic_path)
     add_stars(stars, width, height, col_num, pic_path, font_path)
