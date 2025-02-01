@@ -1,6 +1,7 @@
 """基于读书记录Markdown文件，生成书籍封面图片墙（书籍封面缩略图拼接）"""
 import re
 import pathlib
+import datetime
 from PIL import Image, ImageDraw, ImageFont
 
 
@@ -58,23 +59,24 @@ def add_stars(stars, width, height, col_num, pic_path, font_path):
 
 
 if "__main__" == __name__:
-    year = 2024
-    records = pathlib.Path(rf".\my_douban_data\豆瓣读书记录_{year}.md")
+    # records = pathlib.Path(rf".\my_douban_data\豆瓣读书记录_2024.md")
+    records = pathlib.Path(rf".\my_douban_data\2024 我的私人阅读十佳.md")
     sort_flag = True    # 是否按评价排序
     img_links, stars = get_images_and_stars(records, sort_flag)
 
     width, height = 270, 400    # 单幅缩略图尺寸
-    col_num = 10    # 每行包含的图片数
-    pic_path = records.parent / f"书籍封面图集合_{year}.png"     # 拼接图保存路径
+    col_num = 5    # 每行包含的图片数
     font_path = r'.\my_douban_data\msyh.ttf'  # 字体文件
+
+    pic_path = records.parent / f"书籍封面图集合_{datetime.date.today()}.png"     # 拼接图保存路径
 
     combine_pics(img_links, width, height, col_num, pic_path)
     add_stars(stars, width, height, col_num, pic_path, font_path)
 
     # 生成部分书籍封面图片墙
-    # top = 7
+    # top = 10
     # img_links_top = img_links[:top]
-    # pic_path = "五星书籍封面图集合.png"     # 拼接图保存路径
+    # pic_path = pathlib.Path("五星书籍封面图集合.png")     # 拼接图保存路径
     # col_num = 4    # 每行包含的图片数
     # combine_pics(img_links_top, width, height, col_num, pic_path)
 
